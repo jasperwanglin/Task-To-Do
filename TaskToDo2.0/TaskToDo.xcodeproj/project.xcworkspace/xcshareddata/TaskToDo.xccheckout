@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>059B99FA-1C0A-44CA-92E8-80C864A35510</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TaskToDo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>452BA9D2-C537-413E-8B0B-15F21E09E53F</key>
+		<string>ssh://github.com/jasperwanglin/Task-To-Do.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TaskToDo2.0/TaskToDo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>452BA9D2-C537-413E-8B0B-15F21E09E53F</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/jasperwanglin/Task-To-Do.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>452BA9D2-C537-413E-8B0B-15F21E09E53F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>452BA9D2-C537-413E-8B0B-15F21E09E53F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Task-To-Do</string>
+		</dict>
+	</array>
+</dict>
+</plist>
