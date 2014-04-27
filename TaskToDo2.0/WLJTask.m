@@ -8,6 +8,10 @@
 
 #import "WLJTask.h"
 
+@interface()
+
+@end
+
 @implementation WLJTask
 
 @end

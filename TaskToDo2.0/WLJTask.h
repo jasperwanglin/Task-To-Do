@@ -15,5 +15,6 @@
 @property (nonatomic,strong) NSString * taskDetail;
 @property (nonatomic,strong) NSString * isImportant;
 @property (nonatomic,strong) NSString * itIsTest;
+@property (nonatomic,strong) NSString *zhangyuan;
 
 @end
