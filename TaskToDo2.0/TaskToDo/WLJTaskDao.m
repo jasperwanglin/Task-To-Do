@@ -51,12 +51,55 @@
 
 //修改任务
 - (void)modifyTask: (WLJTask *)task{
+    NSManagedObjectContext *cxt = [self managedObjectContext];
     
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Task" inManagedObjectContext:cxt];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date = %@",task.date];
+    [request setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *tasksManagedObjectData = [cxt executeFetchRequest:request error:&error];
+    
+    if ([tasksManagedObjectData count] > 0) {
+        TaskManagedObject *mo = [tasksManagedObjectData lastObject];
+        mo.title = task.title;
+        mo.isImportant = task.isImportant;
+        mo.detail = task.detail;
+        mo.date  = task.date;
+        
+        NSError *savingError = nil;
+        if (![self.managedObjectContext save:&savingError]) {
+            NSLog(@"%s : %@",__func__,error);
+        }
+    }
 }
 
 //删除任务
 - (void)removeTask: (WLJTask *)task{
+    NSManagedObjectContext *cxt = [self managedObjectContext];
     
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Task" inManagedObjectContext:cxt];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date = %@",task.date];
+    [request setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *tasksManagedObjectData = [cxt executeFetchRequest:request error:&error];
+    if ([tasksManagedObjectData count] > 0) {
+        TaskManagedObject *mo = [tasksManagedObjectData lastObject];
+        [self.managedObjectContext deleteObject:mo];
+        
+        NSError *savingError = nil;
+        if (![self.managedObjectContext save:&savingError]) {
+            NSLog(@"%s : %@",__func__,error);
+        }
+    }
 }
 
 //查询指定任务
