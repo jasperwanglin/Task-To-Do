@@ -7,7 +7,6 @@
 //
 
 #import "WLJHeaderView.h"
-#import "DRNRealTimeBlurView.h"
 
 @implementation WLJHeaderView
 

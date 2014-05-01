@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A41633E318EB2E290064D60A /* UIImage+BoxBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = A41633E018EB2E290064D60A /* UIImage+BoxBlur.m */; };
-		A41633E418EB2E290064D60A /* DRNRealTimeBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41633E218EB2E290064D60A /* DRNRealTimeBlurView.m */; };
+		A40614DE1912262B0034D83A /* TaskToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A40614DC1912262B0034D83A /* TaskToDo.xcdatamodeld */; };
+		A40614E41912284A0034D83A /* WLJTask.m in Sources */ = {isa = PBXBuildFile; fileRef = A40614E31912284A0034D83A /* WLJTask.m */; };
 		A441F41818EA87540038BF25 /* DNSSwipeableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A441F41718EA87540038BF25 /* DNSSwipeableCell.m */; };
 		A441F41E18EA87C00038BF25 /* WLJTaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A441F41D18EA87C00038BF25 /* WLJTaskCell.m */; };
-		A441F42418EAB1B50038BF25 /* WLJTask.m in Sources */ = {isa = PBXBuildFile; fileRef = A441F42318EAB1B50038BF25 /* WLJTask.m */; };
 		A44517FF18E9E91A007417BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A44517FE18E9E91A007417BE /* Foundation.framework */; };
 		A445180118E9E91A007417BE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A445180018E9E91A007417BE /* CoreGraphics.framework */; };
 		A445180318E9E91A007417BE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A445180218E9E91A007417BE /* UIKit.framework */; };
@@ -30,6 +29,11 @@
 		A445183818E9EA22007417BE /* WLJHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A445183718E9EA22007417BE /* WLJHeaderView.m */; };
 		A47382E618FD078400EE36BA /* important.png in Resources */ = {isa = PBXBuildFile; fileRef = A47382E418FD078400EE36BA /* important.png */; };
 		A47382E718FD078400EE36BA /* unimportant.png in Resources */ = {isa = PBXBuildFile; fileRef = A47382E518FD078400EE36BA /* unimportant.png */; };
+		A47B22941912304D007C0A16 /* WLJCoreDataDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = A47B22931912304D007C0A16 /* WLJCoreDataDAO.m */; };
+		A47B229A19123089007C0A16 /* WLJTaskDao.m in Sources */ = {isa = PBXBuildFile; fileRef = A47B229919123089007C0A16 /* WLJTaskDao.m */; };
+		A47B22A3191231DE007C0A16 /* WLJTaskBL.m in Sources */ = {isa = PBXBuildFile; fileRef = A47B22A2191231DE007C0A16 /* WLJTaskBL.m */; };
+		A47B22A519123DA4007C0A16 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A47B22A419123DA4007C0A16 /* CoreData.framework */; };
+		A48F381F191243E30099458E /* TaskManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A48F381E191243E30099458E /* TaskManagedObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,16 +47,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A41633DF18EB2E290064D60A /* UIImage+BoxBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BoxBlur.h"; sourceTree = "<group>"; };
-		A41633E018EB2E290064D60A /* UIImage+BoxBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BoxBlur.m"; sourceTree = "<group>"; };
-		A41633E118EB2E290064D60A /* DRNRealTimeBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRNRealTimeBlurView.h; sourceTree = "<group>"; };
-		A41633E218EB2E290064D60A /* DRNRealTimeBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRNRealTimeBlurView.m; sourceTree = "<group>"; };
+		A40614DD1912262B0034D83A /* TaskToDo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskToDo.xcdatamodel; sourceTree = "<group>"; };
+		A40614E21912284A0034D83A /* WLJTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLJTask.h; sourceTree = "<group>"; };
+		A40614E31912284A0034D83A /* WLJTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLJTask.m; sourceTree = "<group>"; };
 		A441F41618EA87540038BF25 /* DNSSwipeableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNSSwipeableCell.h; sourceTree = "<group>"; };
 		A441F41718EA87540038BF25 /* DNSSwipeableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNSSwipeableCell.m; sourceTree = "<group>"; };
 		A441F41C18EA87C00038BF25 /* WLJTaskCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLJTaskCell.h; path = ../WLJTaskCell.h; sourceTree = "<group>"; };
 		A441F41D18EA87C00038BF25 /* WLJTaskCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLJTaskCell.m; path = ../WLJTaskCell.m; sourceTree = "<group>"; };
-		A441F42218EAB1B50038BF25 /* WLJTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLJTask.h; path = ../WLJTask.h; sourceTree = "<group>"; };
-		A441F42318EAB1B50038BF25 /* WLJTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLJTask.m; path = ../WLJTask.m; sourceTree = "<group>"; };
 		A44517FB18E9E91A007417BE /* TaskToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A44517FE18E9E91A007417BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A445180018E9E91A007417BE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -78,6 +79,15 @@
 		A445183718E9EA22007417BE /* WLJHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLJHeaderView.m; sourceTree = "<group>"; };
 		A47382E418FD078400EE36BA /* important.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = important.png; sourceTree = "<group>"; };
 		A47382E518FD078400EE36BA /* unimportant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unimportant.png; sourceTree = "<group>"; };
+		A47B22921912304D007C0A16 /* WLJCoreDataDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLJCoreDataDAO.h; sourceTree = "<group>"; };
+		A47B22931912304D007C0A16 /* WLJCoreDataDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLJCoreDataDAO.m; sourceTree = "<group>"; };
+		A47B229819123089007C0A16 /* WLJTaskDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLJTaskDao.h; sourceTree = "<group>"; };
+		A47B229919123089007C0A16 /* WLJTaskDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLJTaskDao.m; sourceTree = "<group>"; };
+		A47B22A1191231DE007C0A16 /* WLJTaskBL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLJTaskBL.h; sourceTree = "<group>"; };
+		A47B22A2191231DE007C0A16 /* WLJTaskBL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLJTaskBL.m; sourceTree = "<group>"; };
+		A47B22A419123DA4007C0A16 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		A48F381D191243E30099458E /* TaskManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskManagedObject.h; sourceTree = "<group>"; };
+		A48F381E191243E30099458E /* TaskManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskManagedObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A47B22A519123DA4007C0A16 /* CoreData.framework in Frameworks */,
 				A445180118E9E91A007417BE /* CoreGraphics.framework in Frameworks */,
 				A445180318E9E91A007417BE /* UIKit.framework in Frameworks */,
 				A44517FF18E9E91A007417BE /* Foundation.framework in Frameworks */,
@@ -126,6 +137,7 @@
 		A44517FD18E9E91A007417BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A47B22A419123DA4007C0A16 /* CoreData.framework */,
 				A44517FE18E9E91A007417BE /* Foundation.framework */,
 				A445180018E9E91A007417BE /* CoreGraphics.framework */,
 				A445180218E9E91A007417BE /* UIKit.framework */,
@@ -137,22 +149,13 @@
 		A445180418E9E91A007417BE /* TaskToDo */ = {
 			isa = PBXGroup;
 			children = (
+				A47B22A019123152007C0A16 /* PresentationLayer */,
+				A47B229C191230E7007C0A16 /* BusinessLogicLayer */,
+				A47B229B191230AF007C0A16 /* PersistenceLayer */,
+				A445181918E9E91A007417BE /* Images.xcassets */,
 				A47382E118FD071900EE36BA /* image */,
-				A47382E018FCE7C700EE36BA /* Blur */,
 				A47382DF18FCE79300EE36BA /* HeaderView */,
 				A47382DE18FCE6EA00EE36BA /* DNSSwipeableCell */,
-				A445180D18E9E91A007417BE /* WLJAppDelegate.h */,
-				A445180E18E9E91A007417BE /* WLJAppDelegate.m */,
-				A445181018E9E91A007417BE /* Main.storyboard */,
-				A445181318E9E91A007417BE /* WLJMasterViewController.h */,
-				A445181418E9E91A007417BE /* WLJMasterViewController.m */,
-				A445181618E9E91A007417BE /* WLJDetailViewController.h */,
-				A445181718E9E91A007417BE /* WLJDetailViewController.m */,
-				A441F42218EAB1B50038BF25 /* WLJTask.h */,
-				A441F42318EAB1B50038BF25 /* WLJTask.m */,
-				A441F41C18EA87C00038BF25 /* WLJTaskCell.h */,
-				A441F41D18EA87C00038BF25 /* WLJTaskCell.m */,
-				A445181918E9E91A007417BE /* Images.xcassets */,
 				A445180518E9E91A007417BE /* Supporting Files */,
 			);
 			path = TaskToDo;
@@ -161,6 +164,7 @@
 		A445180518E9E91A007417BE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A40614DC1912262B0034D83A /* TaskToDo.xcdatamodeld */,
 				A445180618E9E91A007417BE /* TaskToDo-Info.plist */,
 				A445180718E9E91A007417BE /* InfoPlist.strings */,
 				A445180A18E9E91A007417BE /* main.m */,
@@ -205,17 +209,6 @@
 			name = HeaderView;
 			sourceTree = "<group>";
 		};
-		A47382E018FCE7C700EE36BA /* Blur */ = {
-			isa = PBXGroup;
-			children = (
-				A41633DF18EB2E290064D60A /* UIImage+BoxBlur.h */,
-				A41633E018EB2E290064D60A /* UIImage+BoxBlur.m */,
-				A41633E118EB2E290064D60A /* DRNRealTimeBlurView.h */,
-				A41633E218EB2E290064D60A /* DRNRealTimeBlurView.m */,
-			);
-			name = Blur;
-			sourceTree = "<group>";
-		};
 		A47382E118FD071900EE36BA /* image */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +216,46 @@
 				A47382E518FD078400EE36BA /* unimportant.png */,
 			);
 			name = image;
+			sourceTree = "<group>";
+		};
+		A47B229B191230AF007C0A16 /* PersistenceLayer */ = {
+			isa = PBXGroup;
+			children = (
+				A48F381D191243E30099458E /* TaskManagedObject.h */,
+				A48F381E191243E30099458E /* TaskManagedObject.m */,
+				A47B229819123089007C0A16 /* WLJTaskDao.h */,
+				A47B229919123089007C0A16 /* WLJTaskDao.m */,
+				A47B22921912304D007C0A16 /* WLJCoreDataDAO.h */,
+				A47B22931912304D007C0A16 /* WLJCoreDataDAO.m */,
+				A40614E21912284A0034D83A /* WLJTask.h */,
+				A40614E31912284A0034D83A /* WLJTask.m */,
+			);
+			name = PersistenceLayer;
+			sourceTree = "<group>";
+		};
+		A47B229C191230E7007C0A16 /* BusinessLogicLayer */ = {
+			isa = PBXGroup;
+			children = (
+				A47B22A1191231DE007C0A16 /* WLJTaskBL.h */,
+				A47B22A2191231DE007C0A16 /* WLJTaskBL.m */,
+			);
+			name = BusinessLogicLayer;
+			sourceTree = "<group>";
+		};
+		A47B22A019123152007C0A16 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				A445180D18E9E91A007417BE /* WLJAppDelegate.h */,
+				A445180E18E9E91A007417BE /* WLJAppDelegate.m */,
+				A445181018E9E91A007417BE /* Main.storyboard */,
+				A445181318E9E91A007417BE /* WLJMasterViewController.h */,
+				A445181418E9E91A007417BE /* WLJMasterViewController.m */,
+				A445181618E9E91A007417BE /* WLJDetailViewController.h */,
+				A445181718E9E91A007417BE /* WLJDetailViewController.m */,
+				A441F41C18EA87C00038BF25 /* WLJTaskCell.h */,
+				A441F41D18EA87C00038BF25 /* WLJTaskCell.m */,
+			);
+			name = PresentationLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,16 +358,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A40614E41912284A0034D83A /* WLJTask.m in Sources */,
 				A445181518E9E91A007417BE /* WLJMasterViewController.m in Sources */,
-				A41633E418EB2E290064D60A /* DRNRealTimeBlurView.m in Sources */,
+				A47B229A19123089007C0A16 /* WLJTaskDao.m in Sources */,
 				A445180F18E9E91A007417BE /* WLJAppDelegate.m in Sources */,
+				A47B22A3191231DE007C0A16 /* WLJTaskBL.m in Sources */,
 				A445183818E9EA22007417BE /* WLJHeaderView.m in Sources */,
+				A48F381F191243E30099458E /* TaskManagedObject.m in Sources */,
 				A441F41E18EA87C00038BF25 /* WLJTaskCell.m in Sources */,
-				A441F42418EAB1B50038BF25 /* WLJTask.m in Sources */,
 				A445180B18E9E91A007417BE /* main.m in Sources */,
-				A41633E318EB2E290064D60A /* UIImage+BoxBlur.m in Sources */,
+				A40614DE1912262B0034D83A /* TaskToDo.xcdatamodeld in Sources */,
 				A441F41818EA87540038BF25 /* DNSSwipeableCell.m in Sources */,
 				A445181818E9E91A007417BE /* WLJDetailViewController.m in Sources */,
+				A47B22941912304D007C0A16 /* WLJCoreDataDAO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +587,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A40614DC1912262B0034D83A /* TaskToDo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A40614DD1912262B0034D83A /* TaskToDo.xcdatamodel */,
+			);
+			currentVersion = A40614DD1912262B0034D83A /* TaskToDo.xcdatamodel */;
+			path = TaskToDo.xcdatamodeld;
+			sourceTree = SOURCE_ROOT;
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A44517F318E9E91A007417BE /* Project object */;
 }

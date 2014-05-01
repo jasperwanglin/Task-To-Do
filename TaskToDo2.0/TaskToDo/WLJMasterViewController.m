@@ -11,7 +11,6 @@
 #import "WLJDetailViewController.h"
 #import "WLJHeaderView.h"
 #import "WLJTaskCell.h"
-#import "WLJTask.h"
 #define HEADER_HEIGHT 200.0f
 #define HEADER_INIT_FRAME CGRectMake(0, 0, self.view.frame.size.width, HEADER_HEIGHT)
 #define TIMELABEL_HEIGHT 50.0f
@@ -230,7 +229,7 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     WLJTaskCell *cell = [tableView dequeueReusableCellWithIdentifier:kWLJTaskCellIdentifier forIndexPath:indexPath];
     
     //设置任务单元的内容
-    if ([[(WLJTask *)[self.Tasks objectAtIndex:indexPath.row] isImportant] isEqual: Important]) {
+    if (1) {
         //任务是重要的
         
         //设置图像
