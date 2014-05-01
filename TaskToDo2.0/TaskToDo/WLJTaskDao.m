@@ -39,7 +39,7 @@
     
     TaskManagedObject *mo = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:cxt];
     mo.title = task.title;
-    mo.isImportant = task.isImportant;
+    mo.isImportant = [NSNumber numberWithBool:task.isImportant];
     mo.detail = task.detail;
     mo.date = task.date;
     
@@ -67,7 +67,7 @@
     if ([tasksManagedObjectData count] > 0) {
         TaskManagedObject *mo = [tasksManagedObjectData lastObject];
         mo.title = task.title;
-        mo.isImportant = task.isImportant;
+        mo.isImportant = [NSNumber numberWithBool:task.isImportant];
         mo.detail = task.detail;
         mo.date  = task.date;
         
@@ -121,7 +121,7 @@
         
         WLJTask *task = [[WLJTask alloc] init];
         task.title = mo.title;
-        task.isImportant = mo.isImportant;
+        task.isImportant = [mo.isImportant boolValue];
         task.detail = mo.detail;
         task.date = mo.date;
         return task;
@@ -150,7 +150,7 @@
     for (TaskManagedObject *mo in tasksManagedObjectData) {
         WLJTask *task = [[WLJTask alloc] init];
         task.title = mo.title;
-        task.isImportant = mo.isImportant;
+        task.isImportant = [mo.isImportant boolValue];
         task.detail = mo.detail;
         task.date = mo.date;
         

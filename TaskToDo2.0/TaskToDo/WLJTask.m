@@ -9,4 +9,10 @@
 #import "WLJTask.h"
 
 @implementation WLJTask
+
+-(NSString *)description{
+    NSString *descriptionString = [NSString stringWithFormat:@"{ title:%@ \n date:%@ \n detail:%@}",_title,_date,_detail];
+    return descriptionString;
+}
+
 @end

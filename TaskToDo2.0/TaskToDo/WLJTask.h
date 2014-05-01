@@ -11,7 +11,7 @@
 @interface WLJTask : NSObject
 
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSNumber * isImportant;
+@property (nonatomic, assign) BOOL isImportant;
 @property (nonatomic, retain) NSString * detail;
 @property (nonatomic, retain) NSDate * date;
 
