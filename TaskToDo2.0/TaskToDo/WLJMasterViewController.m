@@ -134,7 +134,7 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     self.headerView = [[WLJHeaderView alloc] initWithFrame:HEADER_INIT_FRAME];
     self.headerView.delegate = self;
     [self.tableView setTableHeaderView:self.headerView];
-    
+
     //当前的日期标签
     CGRect timeLabelRect = CGRectMake(0, self.headerView.bounds.size.height / 2 - TIMELABEL_HEIGHT / 2, self.headerView.bounds.size.width, TIMELABEL_HEIGHT);
     UILabel *timeLabel = [[UILabel alloc] initWithFrame:timeLabelRect];
@@ -178,34 +178,39 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 #pragma mark - Header View Delegate Method
 - (void)toggleHeaderViewFrame{
     [UIView animateWithDuration:0.8 animations:^{
+        
         self.headerView.isExpanded = !self.headerView.isExpanded;
-//        [self.headerView updateFrame:self.headerView.isExpanded ? CGRectMake(0, self.tableView.contentOffset.y + 64, self.view.frame.size.width, self.view.frame.size.height - 64) : HEADER_INIT_FRAME];
-        [self.headerView updateFrame:self.headerView.isExpanded ? CGRectMake(0, self.tableView.contentOffset.y, self.view.frame.size.width, self.view.frame.size.height) : HEADER_INIT_FRAME];
-
         if (self.headerView.isExpanded) {
+            //视图处于展开的状态，tableView要移动到合适的位置
+            self.tableView.contentOffset = CGPointMake(0, -64.0);
             //当头视图处展开状态的时候，右边的添加任务按钮不可用
             self.navigationItem.rightBarButtonItem.enabled = NO;
         }else{
             self.navigationItem.rightBarButtonItem.enabled = YES;
         }
+        [self.headerView updateFrame:self.headerView.isExpanded ? CGRectMake(0, self.tableView.contentOffset.y, self.view.frame.size.width, self.view.frame.size.height) : HEADER_INIT_FRAME];
+        
     } completion:^(BOOL finished){
+        //表视图的头视图展开后，禁止表视图滚动
         [self.tableView setScrollEnabled:!self.headerView.isExpanded];
     }];
 }
 
 #pragma mark - ScrollView Method
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
     float dalta = 0.0f;
     CGRect rect = HEADER_INIT_FRAME;
     
-    if (self.tableView.contentOffset.y < 0.0f) {
-        dalta = fabs(MIN(0.0f, self.tableView.contentOffset.y));
+    if (self.tableView.contentOffset.y < -64.0f) {
+        dalta = fabs(MIN(-64.0f, self.tableView.contentOffset.y));
+        rect.origin.y -= (dalta - 64.0);
+        rect.size.height += (dalta - 64.0);
+        [self.headerView updateFrame:rect];
     }
-    rect.origin.y -= dalta;
-    rect.size.height += dalta;
-    [self.headerView updateFrame:rect];
     
     NSLog(@"%f",self.tableView.contentOffset.y);
+    NSLog(@"%f %f %f %f",self.tableView.frame.origin.x,self.tableView.frame.origin.y,self.tableView.frame.size.width,self.tableView.frame.size.height);
 }
 #pragma mark - Table View
 

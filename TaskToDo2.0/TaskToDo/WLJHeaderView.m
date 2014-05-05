@@ -14,6 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
         self.viewControllersNum = 2;
         //头部视图中的滚动视图中的视图控制器数组初始化
         NSMutableArray *controllers = [[NSMutableArray alloc] init];
@@ -25,13 +26,13 @@
         //滚动视图控制器设置
         self.scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.viewControllersNum, self.scrollView.frame.size.height);
-        self.backgroundColor = [UIColor clearColor];
         self.scrollView.pagingEnabled = YES;
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.showsVerticalScrollIndicator = NO;
         self.scrollView.scrollsToTop = NO;
         self.scrollView.autoresizesSubviews = YES;
         self.scrollView.delegate = self;
+        self.scrollView.backgroundColor = [UIColor clearColor];
         [self addSubview:self.scrollView];
         
         //当前滚动视图没有展开
@@ -43,7 +44,7 @@
         
         
         //设置页面控制器
-        self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 10, self.frame.size.width, 10)];
+        self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 20, self.frame.size.width, 10)];
         self.pageControl.numberOfPages = self.viewControllersNum;
         self.pageControl.backgroundColor = [UIColor clearColor];
         [self.pageControl setUserInteractionEnabled:NO];
@@ -66,11 +67,12 @@
  * @return 无返回值
  */
 - (void)updateFrame:(CGRect)rect{
-    self.frame = rect;
     self.scrollView.frame = rect;
+    CGRect viewRect = CGRectMake(0, 0, self.frame.size.width, self.scrollView.frame.size.height);
+    self.frame = viewRect;
     
     //调整页控制器的位置
-    float pageControlY = self.frame.size.height + self.scrollView.frame.origin.y - 10.0f;
+    float pageControlY = self.frame.size.height + self.scrollView.frame.origin.y - 20.0f;
     self.pageControl.frame = CGRectMake(0.0f, pageControlY, self.frame.size.width, 10.0f);
 }
 
@@ -87,13 +89,12 @@
     if (Page >= self.viewControllersNum) return;
     
     //磨砂效果的视图
-//    UIView *ppppp [
     UIView *view = [self.viewControllers objectAtIndex:Page];
     switch (Page) {
         case 0:
             if ((NSNull *)view == [NSNull null]) {
                 view = [[UIView alloc] init];
-                view.backgroundColor = [UIColor grayColor];
+                view.backgroundColor = [UIColor purpleColor];
                 CGRect frame = self.scrollView.frame;
                 frame.origin.x = frame.size.width * Page;
                 frame.origin.y = 0;
@@ -104,7 +105,6 @@
                 view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
                 [view.layer setMasksToBounds:YES];
                 [self.scrollView addSubview:view];
-//                [view setBackgroundColor:[UIColor redColor]];
                 [self.viewControllers replaceObjectAtIndex:Page withObject:view];
                 return;
             }
