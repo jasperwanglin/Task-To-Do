@@ -99,6 +99,12 @@
                 frame.origin.x = frame.size.width * Page;
                 frame.origin.y = 0;
                 view.frame = frame;
+                
+                UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:frame];
+                [backgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
+                backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+                backgroundImageView.image = [UIImage imageNamed:@"bg"];
+                [view addSubview:backgroundImageView];
                 //注意下面这行代码
                 [view setContentMode:UIViewContentModeScaleAspectFill];
                 //保证了滚动视图的框架发生变化的时候，它调整到适合的位置

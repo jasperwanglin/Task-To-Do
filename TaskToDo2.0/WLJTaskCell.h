@@ -13,10 +13,20 @@ FOUNDATION_EXPORT CGFloat const kTaskCellHeight;
 
 @interface WLJTaskCell : DNSSwipeableCell
 
-//taskImageView用来表示任务的重要程度的表示图标
+//展现任务的重要程度的表示图标
 @property (nonatomic, strong) UIImageView *taskImageView;
-@property (nonatomic, strong) UILabel *taskTitleLavel;
+
+//展现任务创建的时间
+@property (nonatomic, strong) UILabel *taskCreatedDateLabel;
+
+
+//任务标题
+@property (nonatomic,strong) UILabel *taskTitleLabel;
+
 //任务的名字
 @property (nonatomic, strong) UITextField *taskNameTextField;
+
+//返回单元随机的颜色
+-(UIColor *)cellColor;
 
 @end

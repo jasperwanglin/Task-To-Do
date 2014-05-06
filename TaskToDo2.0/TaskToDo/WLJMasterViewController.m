@@ -17,9 +17,6 @@
 #define IMAGEVIEW_FRAME CGRectMake(0, 0, self.view.frame.size.width, HEADER_HEIGHT)
 #define TEXTFIELD_FRAME CGRectMake(0, 0, self.view.frame.size.width, HEADER_HEIGHT)
 
-static CGFloat const taskCelllLeftMargin = 15.0f;
-static CGFloat const taskCellRightMargin = 20.0f;
-static CGFloat const betweenViewsMargin = 8.0f;
 
 typedef NS_ENUM(NSInteger, RE_EDITING_TYPE) {
     BeImportant = 0 ,
@@ -35,6 +32,8 @@ int rowNum;
 @property (nonatomic, strong) NSMutableArray *Tasks;//存放已经添加的任务
 @property (nonatomic, strong) NSArray *backgroundColors;//任务单元中的按钮的颜色
 @property (nonatomic, strong) NSArray *buttonTextColors;
+@property (nonatomic, assign) BOOL hideStatusBar;
+@property (nonatomic, assign) CGFloat preContentOffsetY;
 
 @end
 
@@ -52,11 +51,20 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     [super viewDidLoad];
     rowNum = 6;
 	// Do any additional setup after loading the view, typically from a nib.
-//    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
     //添加“添加按钮”到导航栏，用于添加任务
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    //设置状态栏状态为显示
+    self.hideStatusBar = NO;
+    
+    //表视图的背景颜色和内容视图的背景颜色
+    self.tableView.backgroundColor = [UIColor colorWithRed:22.0/255.0 green:31.0/255.0 blue:68.0/255.0 alpha:1];
+    
+    //表视图的单元分割线设置
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     //初始化编辑单元数组
     self.taskCellsCurrentlyEditing = [NSMutableArray array];
@@ -67,14 +75,26 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     //读取文件，将用户已经创建的任务读入
     
     
-    //设置背景颜色
-    self.backgroundColors = @[[UIColor purpleColor],
-                              [UIColor greenColor]];
-    
-    //设置任务单元按钮的字体颜色
-    self.buttonTextColors = @[[UIColor whiteColor],
-                              [UIColor blackColor]];
+    //设置单元按钮的背景颜色
+    self.backgroundColors = @[[UIColor colorWithRed:255.0/255.0 green:0 blue:0 alpha:1],[UIColor colorWithRed:255.0/255.0 green:20.0/255.0 blue:147.0/255.0 alpha:1],[UIColor colorWithRed:255.0/255.0 green:182.0/255.0 blue:193.0/255.0 alpha:1]];
     [self creatHeadeerView];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:22.0/255.0 green:31.0/255.0 blue:68.0/255.0 alpha:1];
+    
+    //表视图刚开始的contentOffset就为-64.0f
+    self.preContentOffsetY = -64.0f;
+}
+
+//状态栏状态设置
+- (BOOL)prefersStatusBarHidden{
+    return self.hideStatusBar;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation{
+    return UIStatusBarAnimationSlide;
 }
 
 //插入任务
@@ -91,24 +111,29 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 
     WLJTaskCell *taskCell = (WLJTaskCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     
-    //添加图片视图
-    CGFloat imageHeight = kTaskCellHeight - (betweenViewsMargin * 2);
-    taskCell.taskImageView = [[UIImageView alloc] initWithFrame:CGRectMake(taskCelllLeftMargin, betweenViewsMargin, imageHeight, imageHeight)];
-    taskCell.contentMode = UIViewContentModeScaleAspectFit;
+    //添加任务重要性图片
     taskCell.taskImageView.image = [UIImage imageNamed:@"unimportant"];
-    [taskCell.myContentView addSubview:taskCell.taskImageView];
     
-    //添加textField
+    //添加任务的时间
+    NSDate *createTaskDate = [NSDate date];
+    taskCell.taskCreatedDateLabel.text =
+    [NSDateFormatter localizedStringFromDate:createTaskDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
     
-    CGFloat taskTextFieldOrigin = CGRectGetMaxX(taskCell.taskImageView.frame) + betweenViewsMargin;
-    CGFloat taskTextFieldWidth = CGRectGetWidth(taskCell.frame) - taskTextFieldOrigin - taskCellRightMargin;
-    taskCell.taskNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(taskTextFieldOrigin, 0, taskTextFieldWidth, kTaskCellHeight)];
-    taskCell.taskNameTextField.delegate = self;
-    taskCell.taskNameTextField.textAlignment = NSTextAlignmentCenter;
-    taskCell.taskNameTextField.returnKeyType = UIReturnKeyDone;
-    [taskCell.myContentView addSubview:taskCell.taskNameTextField];
-    //把要编辑的视图变成第一响应者
-    [taskCell.taskNameTextField becomeFirstResponder];
+    //添加任务的标题
+    taskCell.taskTitleLabel.text = @"I AM WANGLIN I AM JASPER";
+    
+    //设置单元的颜色
+    taskCell.myContentView.backgroundColor = taskCell.cellColor;
+    
+//    CGFloat taskTextFieldOrigin = CGRectGetMaxX(taskCell.taskImageView.frame) + betweenViewsMargin;
+//    CGFloat taskTextFieldWidth = CGRectGetWidth(taskCell.frame) - taskTextFieldOrigin - taskCellRightMargin;
+//    taskCell.taskNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(taskTextFieldOrigin, 0, taskTextFieldWidth, kTaskCellHeight)];
+//    taskCell.taskNameTextField.delegate = self;
+//    taskCell.taskNameTextField.textAlignment = NSTextAlignmentCenter;
+//    taskCell.taskNameTextField.returnKeyType = UIReturnKeyDone;
+//    [taskCell.myContentView addSubview:taskCell.taskNameTextField];
+//    //把要编辑的视图变成第一响应者
+//    [taskCell.taskNameTextField becomeFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -197,6 +222,8 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 }
 
 #pragma mark - ScrollView Method
+
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     float dalta = 0.0f;
@@ -209,9 +236,22 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
         [self.headerView updateFrame:rect];
     }
     
-    NSLog(@"%f",self.tableView.contentOffset.y);
-    NSLog(@"%f %f %f %f",self.tableView.frame.origin.x,self.tableView.frame.origin.y,self.tableView.frame.size.width,self.tableView.frame.size.height);
+    if (scrollView.contentOffset.y > self.preContentOffsetY) {
+        self.hideStatusBar = YES;
+        [UIView animateWithDuration:0.5 animations:^{
+            [self setNeedsStatusBarAppearanceUpdate];
+        }];
+    }else if (scrollView.contentOffset.y < self.preContentOffsetY){
+        self.hideStatusBar = NO;
+        [UIView animateWithDuration:0.5 animations:^{
+            [self setNeedsStatusBarAppearanceUpdate];
+        }];
+    }
 }
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    self.preContentOffsetY = scrollView.contentOffset.y;
+}
+
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -308,27 +348,12 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 }
 
 - (UIColor *)backgroundColorForButtonAtIndex:(NSInteger)index inCellAtIndexPath:(NSIndexPath *)indexPath{
-    switch (index) {
-        case 0:
-            return [UIColor redColor];
-            break;
-        default:{
-            return [self.backgroundColors objectAtIndex:index - 1];
-        }
-            break;
-    }
+
+    return [self.backgroundColors objectAtIndex:index];
 }
 
 - (UIColor *)textColorForButtonAtIndex:(NSInteger)index inCellAtIndexPath:(NSIndexPath *)indexPath{
-    switch (index) {
-        case 0:
-            return [self.buttonTextColors objectAtIndex:0];
-            break;
-            
-        default:
-            return [self.buttonTextColors objectAtIndex:1];
-            break;
-    }
+    return [UIColor whiteColor];
 }
 
 #pragma mark - UITableViewDelegate
@@ -391,10 +416,12 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 }
 
 - (void)swipeableCellDidOpen:(DNSSwipeableCell *)cell{
+    //添加正在编辑的单元索引到编辑单元数组中
     [self.taskCellsCurrentlyEditing addObject:cell.indexPath];
 }
 
 - (void)swipeableCellDidClose:(DNSSwipeableCell *)cell{
+    //从编辑单元数组中移除指定的单元索引
     [self.taskCellsCurrentlyEditing removeObject:cell.indexPath];
 }
 /*
