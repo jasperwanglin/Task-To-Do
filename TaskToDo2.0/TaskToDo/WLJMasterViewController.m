@@ -202,14 +202,16 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 }
 #pragma mark - Header View Delegate Method
 - (void)toggleHeaderViewFrame{
+    
+    self.headerView.isExpanded = !self.headerView.isExpanded;
+    
     [UIView animateWithDuration:0.8 animations:^{
-        
-        self.headerView.isExpanded = !self.headerView.isExpanded;
         if (self.headerView.isExpanded) {
-            //视图处于展开的状态，tableView要移动到合适的位置
+            //视图处于展开的状态，tableView要移动到合适的位置,防止了表视图的头视图缩放有问题
             self.tableView.contentOffset = CGPointMake(0, -64.0);
             //当头视图处展开状态的时候，右边的添加任务按钮不可用
             self.navigationItem.rightBarButtonItem.enabled = NO;
+    
         }else{
             self.navigationItem.rightBarButtonItem.enabled = YES;
         }
@@ -218,6 +220,12 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     } completion:^(BOOL finished){
         //表视图的头视图展开后，禁止表视图滚动
         [self.tableView setScrollEnabled:!self.headerView.isExpanded];
+        if (self.headerView.isExpanded && self.hideStatusBar == YES) {
+            self.hideStatusBar = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                [self setNeedsStatusBarAppearanceUpdate];
+            }];
+        }
     }];
 }
 
