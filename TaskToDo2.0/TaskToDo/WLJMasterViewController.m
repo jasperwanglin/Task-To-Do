@@ -11,6 +11,9 @@
 #import "WLJDetailViewController.h"
 #import "WLJHeaderView.h"
 #import "WLJTaskCell.h"
+#import "WLJTaskBL.h"
+#import "WLJTaskDetailViewController.h"
+
 #define HEADER_HEIGHT 200.0f
 #define HEADER_INIT_FRAME CGRectMake(0, 0, self.view.frame.size.width, HEADER_HEIGHT)
 #define TIMELABEL_HEIGHT 50.0f
@@ -50,12 +53,7 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 {
     [super viewDidLoad];
     rowNum = 6;
-	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-    //添加“添加按钮”到导航栏，用于添加任务
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
     
     //设置状态栏状态为显示
     self.hideStatusBar = NO;
@@ -78,10 +76,52 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     //设置单元按钮的背景颜色
     self.backgroundColors = @[[UIColor colorWithRed:255.0/255.0 green:0 blue:0 alpha:1],[UIColor colorWithRed:255.0/255.0 green:20.0/255.0 blue:147.0/255.0 alpha:1],[UIColor colorWithRed:255.0/255.0 green:182.0/255.0 blue:193.0/255.0 alpha:1]];
     [self creatHeadeerView];
+    
+    //设置导航栏的着色
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:22.0/255.0 green:31.0/255.0 blue:68.0/255.0 alpha:1];
     
     //表视图刚开始的contentOffset就为-64.0f
     self.preContentOffsetY = -64.0f;
+    
+    //设置导航项目的标题视图
+    UIImageView *titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(115, 10, 94, 26)];
+    [titleImageView setContentMode:UIViewContentModeScaleAspectFit];
+    UIImage *titleImage = [UIImage imageNamed:@"title"];
+    titleImageView.image = titleImage;
+    self.navigationItem.titleView = titleImageView;
+    
+    //导航项目左边按钮,用于设置
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [leftButton setBackgroundImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
+    leftButton.frame = CGRectMake(0, 0, 30, 30);
+    
+    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = leftBarButton;
+    
+    //导航项目右边按钮,用于添加任务
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightButton setBackgroundImage:[UIImage imageNamed:@"adding"] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(insertNewObject:) forControlEvents:UIControlEventTouchUpInside];
+    rightButton.frame = CGRectMake(0, 0, 30, 30);
+    
+    UIBarButtonItem *rightBarbutton = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem = rightBarbutton;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+//导航栏左侧按钮出发动作，弹出提供设置的模态视图
+- (void)setting:(UIButton *)button
+{
+    //setting按钮的动画效果
+    [UIView animateWithDuration:0.3 animations:^{
+        button.transform = CGAffineTransformMakeRotation(M_PI);
+    } completion:^(BOOL finished) {
+        button.transform = CGAffineTransformMakeRotation(0);
+    }];
+    
 }
 
 //状态栏状态设置
@@ -98,13 +138,21 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 }
 
 //插入任务
-- (void)insertNewObject:(id)sender
+- (void)insertNewObject:(UIButton *)button
 {
+    //adding按钮的动画效果
+    [UIView animateWithDuration:0.3 animations:^{
+        button.transform = CGAffineTransformMakeRotation(M_PI);
+    } completion:^(BOOL finished) {
+        button.transform = CGAffineTransformMakeRotation(0);
+    }];
+    
     rowNum++;//注意，添加任务的时候，行数一定要增加
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     //调用编辑任务
     [self editTask:indexPath];
+    
 }
 //编辑任务
 - (void)editTask:(NSIndexPath *)indexPath{
@@ -124,16 +172,6 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     
     //设置单元的颜色
     taskCell.myContentView.backgroundColor = taskCell.cellColor;
-    
-//    CGFloat taskTextFieldOrigin = CGRectGetMaxX(taskCell.taskImageView.frame) + betweenViewsMargin;
-//    CGFloat taskTextFieldWidth = CGRectGetWidth(taskCell.frame) - taskTextFieldOrigin - taskCellRightMargin;
-//    taskCell.taskNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(taskTextFieldOrigin, 0, taskTextFieldWidth, kTaskCellHeight)];
-//    taskCell.taskNameTextField.delegate = self;
-//    taskCell.taskNameTextField.textAlignment = NSTextAlignmentCenter;
-//    taskCell.taskNameTextField.returnKeyType = UIReturnKeyDone;
-//    [taskCell.myContentView addSubview:taskCell.taskNameTextField];
-//    //把要编辑的视图变成第一响应者
-//    [taskCell.taskNameTextField becomeFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -195,39 +233,36 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 #pragma mark - Header View Delegate Method
+
 - (void)toggleHeaderViewFrame{
     
-    self.headerView.isExpanded = !self.headerView.isExpanded;
-    
-    [UIView animateWithDuration:0.8 animations:^{
-        if (self.headerView.isExpanded) {
-            //视图处于展开的状态，tableView要移动到合适的位置,防止了表视图的头视图缩放有问题
-            self.tableView.contentOffset = CGPointMake(0, -64.0);
-            //当头视图处展开状态的时候，右边的添加任务按钮不可用
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-    
-        }else{
-            self.navigationItem.rightBarButtonItem.enabled = YES;
-        }
-        [self.headerView updateFrame:self.headerView.isExpanded ? CGRectMake(0, self.tableView.contentOffset.y, self.view.frame.size.width, self.view.frame.size.height) : HEADER_INIT_FRAME];
-        
-    } completion:^(BOOL finished){
-        //表视图的头视图展开后，禁止表视图滚动
-        [self.tableView setScrollEnabled:!self.headerView.isExpanded];
-        if (self.headerView.isExpanded && self.hideStatusBar == YES) {
-            self.hideStatusBar = NO;
-            [UIView animateWithDuration:0.3 animations:^{
-                [self setNeedsStatusBarAppearanceUpdate];
-            }];
-        }
-    }];
+//    self.headerView.isExpanded = !self.headerView.isExpanded;
+//    
+//    [UIView animateWithDuration:0.8 animations:^{
+//        if (self.headerView.isExpanded) {
+//            //视图处于展开的状态，tableView要移动到合适的位置,防止了表视图的头视图缩放有问题
+//            self.tableView.contentOffset = CGPointMake(0, -64.0);
+//            //当头视图处展开状态的时候，右边的添加任务按钮不可用
+//            self.navigationItem.rightBarButtonItem.enabled = NO;
+//    
+//        }else{
+//            self.navigationItem.rightBarButtonItem.enabled = YES;
+//        }
+//        [self.headerView updateFrame:self.headerView.isExpanded ? CGRectMake(0, self.tableView.contentOffset.y, self.view.frame.size.width, self.view.frame.size.height) : HEADER_INIT_FRAME];
+//        
+//    } completion:^(BOOL finished){
+//        //表视图的头视图展开后，禁止表视图滚动
+//        [self.tableView setScrollEnabled:!self.headerView.isExpanded];
+//        if (self.headerView.isExpanded && self.hideStatusBar == YES) {
+//            self.hideStatusBar = NO;
+//            [UIView animateWithDuration:0.3 animations:^{
+//                [self setNeedsStatusBarAppearanceUpdate];
+//            }];
+//        }
+//    }];
 }
+
 
 #pragma mark - ScrollView Method
 
@@ -246,12 +281,12 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     
     if (scrollView.contentOffset.y > self.preContentOffsetY) {
         self.hideStatusBar = YES;
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.25 animations:^{
             [self setNeedsStatusBarAppearanceUpdate];
         }];
     }else if (scrollView.contentOffset.y < self.preContentOffsetY){
         self.hideStatusBar = NO;
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.25 animations:^{
             [self setNeedsStatusBarAppearanceUpdate];
         }];
     }
@@ -260,7 +295,7 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     self.preContentOffsetY = scrollView.contentOffset.y;
 }
 
-#pragma mark - Table View
+#pragma mark - Table View Delegate and DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -288,13 +323,13 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
         //设置图像
         
         //设置任务标题
-        
+        cell.taskTitleLabel.text = @"Hello Sir!";
     }else{
         //设置任务标题
         
     }
     
-    //保存任务单元的索引
+    //保存任务单元的索引(重要，否则无法正常工作)
     cell.indexPath = indexPath;
     
     cell.dataSource = self;
@@ -313,6 +348,31 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 {
     // Return NO if you do not want the specified item to be editable.
     return NO;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //弹出详细任务单
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    WLJTaskDetailViewController *taskDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"TaskDetailVIewController"];
+    
+//    if (self.hideStatusBar) {
+//        NSLog(@"是的，我隐藏了");
+//        self.hideStatusBar = NO;
+//        [UIView animateWithDuration:0.3 animations:^{
+//            [self setNeedsStatusBarAppearanceUpdate];
+//        } completion:^(BOOL finished) {
+//            [self.navigationController pushViewController:taskDetailViewController animated:YES];
+//        }];
+//    }else{
+//        [self.navigationController pushViewController:taskDetailViewController animated:YES];
+//    }
+//
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(closeModal)];
+    taskDetailViewController.navigationItem.rightBarButtonItem = done;
+    [self presentViewController:taskDetailViewController animated:YES completion:nil];
+}
+-(void)closeModal{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -364,10 +424,6 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     return [UIColor whiteColor];
 }
 
-#pragma mark - UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //弹出详细任务单
-}
 
 #pragma mark Optional Methods
 - (CGFloat)fontSizeForButtonAtIndex:(NSInteger)index inCellAtIndexPath:(NSIndexPath *)indexPath{
@@ -455,6 +511,11 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
         NSDate *object = _objects[indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }*/
+}
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end
