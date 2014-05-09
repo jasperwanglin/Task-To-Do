@@ -9,8 +9,11 @@
 /* Begin PBXBuildFile section */
 		A40614DE1912262B0034D83A /* TaskToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A40614DC1912262B0034D83A /* TaskToDo.xcdatamodeld */; };
 		A40614E41912284A0034D83A /* WLJTask.m in Sources */ = {isa = PBXBuildFile; fileRef = A40614E31912284A0034D83A /* WLJTask.m */; };
+		A40CD49C191B38E400042B39 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = A40CD49B191B38E400042B39 /* title.png */; };
 		A425872D191951B3009A8DB8 /* UINavigationController+chidViewCtrolForStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = A425872C191951B3009A8DB8 /* UINavigationController+chidViewCtrolForStatusBarStyle.m */; };
 		A425873119197766009A8DB8 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A425873019197766009A8DB8 /* bg.png */; };
+		A43ECB1F191CB79D00F216DE /* WLJTaskDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43ECB1E191CB79D00F216DE /* WLJTaskDetailViewController.m */; };
+		A43ECB21191CD68E00F216DE /* done.png in Resources */ = {isa = PBXBuildFile; fileRef = A43ECB20191CD68E00F216DE /* done.png */; };
 		A441F41818EA87540038BF25 /* DNSSwipeableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A441F41718EA87540038BF25 /* DNSSwipeableCell.m */; };
 		A441F41E18EA87C00038BF25 /* WLJTaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A441F41D18EA87C00038BF25 /* WLJTaskCell.m */; };
 		A44517FF18E9E91A007417BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A44517FE18E9E91A007417BE /* Foundation.framework */; };
@@ -41,10 +44,9 @@
 		A4D314FB191A222500964B8A /* UIImageView+LBBlurredImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D314F7191A222500964B8A /* UIImageView+LBBlurredImage.m */; };
 		A4D314FC191A222500964B8A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A4D314F8191A222500964B8A /* LICENSE */; };
 		A4D314FD191A222500964B8A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A4D314F9191A222500964B8A /* README.md */; };
-		A4D3150D191A3BA900964B8A /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = A4D3150C191A3BA900964B8A /* title.png */; };
+		A4D3150D191A3BA900964B8A /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = A4D3150C191A3BA900964B8A /* 2.png */; };
 		A4D3150F191A445A00964B8A /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = A4D3150E191A445A00964B8A /* setting.png */; };
 		A4D31515191A5C7700964B8A /* adding.png in Resources */ = {isa = PBXBuildFile; fileRef = A4D31514191A5C7700964B8A /* adding.png */; };
-		A4D31562191A89BA00964B8A /* WLJTaskDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D31561191A89BA00964B8A /* WLJTaskDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,9 +63,13 @@
 		A40614DD1912262B0034D83A /* TaskToDo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskToDo.xcdatamodel; sourceTree = "<group>"; };
 		A40614E21912284A0034D83A /* WLJTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLJTask.h; sourceTree = "<group>"; };
 		A40614E31912284A0034D83A /* WLJTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLJTask.m; sourceTree = "<group>"; };
+		A40CD49B191B38E400042B39 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		A425872B191951B3009A8DB8 /* UINavigationController+chidViewCtrolForStatusBarStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+chidViewCtrolForStatusBarStyle.h"; sourceTree = "<group>"; };
 		A425872C191951B3009A8DB8 /* UINavigationController+chidViewCtrolForStatusBarStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+chidViewCtrolForStatusBarStyle.m"; sourceTree = "<group>"; };
 		A425873019197766009A8DB8 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		A43ECB1D191CB79D00F216DE /* WLJTaskDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLJTaskDetailViewController.h; sourceTree = "<group>"; };
+		A43ECB1E191CB79D00F216DE /* WLJTaskDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLJTaskDetailViewController.m; sourceTree = "<group>"; };
+		A43ECB20191CD68E00F216DE /* done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = done.png; sourceTree = "<group>"; };
 		A441F41618EA87540038BF25 /* DNSSwipeableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNSSwipeableCell.h; sourceTree = "<group>"; };
 		A441F41718EA87540038BF25 /* DNSSwipeableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNSSwipeableCell.m; sourceTree = "<group>"; };
 		A441F41C18EA87C00038BF25 /* WLJTaskCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLJTaskCell.h; path = ../WLJTaskCell.h; sourceTree = "<group>"; };
@@ -109,11 +115,9 @@
 		A4D314F7191A222500964B8A /* UIImageView+LBBlurredImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+LBBlurredImage.m"; sourceTree = "<group>"; };
 		A4D314F8191A222500964B8A /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A4D314F9191A222500964B8A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		A4D3150C191A3BA900964B8A /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
+		A4D3150C191A3BA900964B8A /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		A4D3150E191A445A00964B8A /* setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting.png; sourceTree = "<group>"; };
 		A4D31514191A5C7700964B8A /* adding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adding.png; sourceTree = "<group>"; };
-		A4D31560191A89BA00964B8A /* WLJTaskDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLJTaskDetailViewController.h; sourceTree = "<group>"; };
-		A4D31561191A89BA00964B8A /* WLJTaskDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLJTaskDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,9 +243,11 @@
 		A47382E118FD071900EE36BA /* image */ = {
 			isa = PBXGroup;
 			children = (
+				A43ECB20191CD68E00F216DE /* done.png */,
+				A40CD49B191B38E400042B39 /* title.png */,
 				A4D31514191A5C7700964B8A /* adding.png */,
 				A4D3150E191A445A00964B8A /* setting.png */,
-				A4D3150C191A3BA900964B8A /* title.png */,
+				A4D3150C191A3BA900964B8A /* 2.png */,
 				A425873019197766009A8DB8 /* bg.png */,
 				A48DA98619190F4D00613622 /* detail.png */,
 				A48DA97E1918ECBD00613622 /* important.png */,
@@ -277,13 +283,13 @@
 		A47B22A019123152007C0A16 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				A43ECB1D191CB79D00F216DE /* WLJTaskDetailViewController.h */,
+				A43ECB1E191CB79D00F216DE /* WLJTaskDetailViewController.m */,
 				A425872B191951B3009A8DB8 /* UINavigationController+chidViewCtrolForStatusBarStyle.h */,
 				A425872C191951B3009A8DB8 /* UINavigationController+chidViewCtrolForStatusBarStyle.m */,
 				A445180D18E9E91A007417BE /* WLJAppDelegate.h */,
 				A445180E18E9E91A007417BE /* WLJAppDelegate.m */,
 				A445181018E9E91A007417BE /* Main.storyboard */,
-				A4D31560191A89BA00964B8A /* WLJTaskDetailViewController.h */,
-				A4D31561191A89BA00964B8A /* WLJTaskDetailViewController.m */,
 				A445181318E9E91A007417BE /* WLJMasterViewController.h */,
 				A445181418E9E91A007417BE /* WLJMasterViewController.m */,
 				A445181618E9E91A007417BE /* WLJDetailViewController.h */,
@@ -393,14 +399,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4D3150D191A3BA900964B8A /* title.png in Resources */,
+				A4D3150D191A3BA900964B8A /* 2.png in Resources */,
 				A445181A18E9E91A007417BE /* Images.xcassets in Resources */,
 				A48DA98719190F4D00613622 /* detail.png in Resources */,
+				A43ECB21191CD68E00F216DE /* done.png in Resources */,
 				A4D314FC191A222500964B8A /* LICENSE in Resources */,
 				A425873119197766009A8DB8 /* bg.png in Resources */,
 				A4D3150F191A445A00964B8A /* setting.png in Resources */,
 				A445180918E9E91A007417BE /* InfoPlist.strings in Resources */,
 				A48DA9801918ECBD00613622 /* important.png in Resources */,
+				A40CD49C191B38E400042B39 /* title.png in Resources */,
 				A4D314FD191A222500964B8A /* README.md in Resources */,
 				A48DA9811918ECBD00613622 /* unimportant.png in Resources */,
 				A445181218E9E91A007417BE /* Main.storyboard in Resources */,
@@ -431,7 +439,7 @@
 				A445183818E9EA22007417BE /* WLJHeaderView.m in Sources */,
 				A48F381F191243E30099458E /* TaskManagedObject.m in Sources */,
 				A441F41E18EA87C00038BF25 /* WLJTaskCell.m in Sources */,
-				A4D31562191A89BA00964B8A /* WLJTaskDetailViewController.m in Sources */,
+				A43ECB1F191CB79D00F216DE /* WLJTaskDetailViewController.m in Sources */,
 				A445180B18E9E91A007417BE /* main.m in Sources */,
 				A425872D191951B3009A8DB8 /* UINavigationController+chidViewCtrolForStatusBarStyle.m in Sources */,
 				A40614DE1912262B0034D83A /* TaskToDo.xcdatamodeld in Sources */,

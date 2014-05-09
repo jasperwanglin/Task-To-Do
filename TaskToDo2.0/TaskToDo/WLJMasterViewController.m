@@ -355,20 +355,6 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     WLJTaskDetailViewController *taskDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"TaskDetailVIewController"];
     
-//    if (self.hideStatusBar) {
-//        NSLog(@"是的，我隐藏了");
-//        self.hideStatusBar = NO;
-//        [UIView animateWithDuration:0.3 animations:^{
-//            [self setNeedsStatusBarAppearanceUpdate];
-//        } completion:^(BOOL finished) {
-//            [self.navigationController pushViewController:taskDetailViewController animated:YES];
-//        }];
-//    }else{
-//        [self.navigationController pushViewController:taskDetailViewController animated:YES];
-//    }
-//
-    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(closeModal)];
-    taskDetailViewController.navigationItem.rightBarButtonItem = done;
     [self presentViewController:taskDetailViewController animated:YES completion:nil];
 }
 -(void)closeModal{
