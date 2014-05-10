@@ -12,6 +12,8 @@
 		A40CD49C191B38E400042B39 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = A40CD49B191B38E400042B39 /* title.png */; };
 		A425872D191951B3009A8DB8 /* UINavigationController+chidViewCtrolForStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = A425872C191951B3009A8DB8 /* UINavigationController+chidViewCtrolForStatusBarStyle.m */; };
 		A425873119197766009A8DB8 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A425873019197766009A8DB8 /* bg.png */; };
+		A42A1139191E21AA00D71BD1 /* bgImg.png in Resources */ = {isa = PBXBuildFile; fileRef = A42A1137191E21AA00D71BD1 /* bgImg.png */; };
+		A42A113A191E21AA00D71BD1 /* bgImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A42A1138191E21AA00D71BD1 /* bgImg@2x.png */; };
 		A43ECB1F191CB79D00F216DE /* WLJTaskDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43ECB1E191CB79D00F216DE /* WLJTaskDetailViewController.m */; };
 		A43ECB21191CD68E00F216DE /* done.png in Resources */ = {isa = PBXBuildFile; fileRef = A43ECB20191CD68E00F216DE /* done.png */; };
 		A441F41818EA87540038BF25 /* DNSSwipeableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A441F41718EA87540038BF25 /* DNSSwipeableCell.m */; };
@@ -32,6 +34,8 @@
 		A445182B18E9E91B007417BE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A445182918E9E91B007417BE /* InfoPlist.strings */; };
 		A445182D18E9E91B007417BE /* TaskToDoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A445182C18E9E91B007417BE /* TaskToDoTests.m */; };
 		A445183818E9EA22007417BE /* WLJHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A445183718E9EA22007417BE /* WLJHeaderView.m */; };
+		A4701A28191E946500D097F3 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = A4701A27191E946500D097F3 /* save.png */; };
+		A4701A2A191EA07100D097F3 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = A4701A29191EA07100D097F3 /* cancel.png */; };
 		A47B22941912304D007C0A16 /* WLJCoreDataDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = A47B22931912304D007C0A16 /* WLJCoreDataDAO.m */; };
 		A47B229A19123089007C0A16 /* WLJTaskDao.m in Sources */ = {isa = PBXBuildFile; fileRef = A47B229919123089007C0A16 /* WLJTaskDao.m */; };
 		A47B22A3191231DE007C0A16 /* WLJTaskBL.m in Sources */ = {isa = PBXBuildFile; fileRef = A47B22A2191231DE007C0A16 /* WLJTaskBL.m */; };
@@ -67,6 +71,8 @@
 		A425872B191951B3009A8DB8 /* UINavigationController+chidViewCtrolForStatusBarStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+chidViewCtrolForStatusBarStyle.h"; sourceTree = "<group>"; };
 		A425872C191951B3009A8DB8 /* UINavigationController+chidViewCtrolForStatusBarStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+chidViewCtrolForStatusBarStyle.m"; sourceTree = "<group>"; };
 		A425873019197766009A8DB8 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		A42A1137191E21AA00D71BD1 /* bgImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgImg.png; sourceTree = "<group>"; };
+		A42A1138191E21AA00D71BD1 /* bgImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgImg@2x.png"; sourceTree = "<group>"; };
 		A43ECB1D191CB79D00F216DE /* WLJTaskDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLJTaskDetailViewController.h; sourceTree = "<group>"; };
 		A43ECB1E191CB79D00F216DE /* WLJTaskDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLJTaskDetailViewController.m; sourceTree = "<group>"; };
 		A43ECB20191CD68E00F216DE /* done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = done.png; sourceTree = "<group>"; };
@@ -97,6 +103,8 @@
 		A445182C18E9E91B007417BE /* TaskToDoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskToDoTests.m; sourceTree = "<group>"; };
 		A445183618E9EA22007417BE /* WLJHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLJHeaderView.h; sourceTree = "<group>"; };
 		A445183718E9EA22007417BE /* WLJHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLJHeaderView.m; sourceTree = "<group>"; };
+		A4701A27191E946500D097F3 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
+		A4701A29191EA07100D097F3 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		A47B22921912304D007C0A16 /* WLJCoreDataDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLJCoreDataDAO.h; sourceTree = "<group>"; };
 		A47B22931912304D007C0A16 /* WLJCoreDataDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLJCoreDataDAO.m; sourceTree = "<group>"; };
 		A47B229819123089007C0A16 /* WLJTaskDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLJTaskDao.h; sourceTree = "<group>"; };
@@ -243,6 +251,10 @@
 		A47382E118FD071900EE36BA /* image */ = {
 			isa = PBXGroup;
 			children = (
+				A4701A29191EA07100D097F3 /* cancel.png */,
+				A4701A27191E946500D097F3 /* save.png */,
+				A42A1137191E21AA00D71BD1 /* bgImg.png */,
+				A42A1138191E21AA00D71BD1 /* bgImg@2x.png */,
 				A43ECB20191CD68E00F216DE /* done.png */,
 				A40CD49B191B38E400042B39 /* title.png */,
 				A4D31514191A5C7700964B8A /* adding.png */,
@@ -402,17 +414,21 @@
 				A4D3150D191A3BA900964B8A /* 2.png in Resources */,
 				A445181A18E9E91A007417BE /* Images.xcassets in Resources */,
 				A48DA98719190F4D00613622 /* detail.png in Resources */,
+				A42A1139191E21AA00D71BD1 /* bgImg.png in Resources */,
 				A43ECB21191CD68E00F216DE /* done.png in Resources */,
 				A4D314FC191A222500964B8A /* LICENSE in Resources */,
 				A425873119197766009A8DB8 /* bg.png in Resources */,
 				A4D3150F191A445A00964B8A /* setting.png in Resources */,
 				A445180918E9E91A007417BE /* InfoPlist.strings in Resources */,
 				A48DA9801918ECBD00613622 /* important.png in Resources */,
+				A4701A28191E946500D097F3 /* save.png in Resources */,
 				A40CD49C191B38E400042B39 /* title.png in Resources */,
 				A4D314FD191A222500964B8A /* README.md in Resources */,
 				A48DA9811918ECBD00613622 /* unimportant.png in Resources */,
 				A445181218E9E91A007417BE /* Main.storyboard in Resources */,
+				A4701A2A191EA07100D097F3 /* cancel.png in Resources */,
 				A4D31515191A5C7700964B8A /* adding.png in Resources */,
+				A42A113A191E21AA00D71BD1 /* bgImg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

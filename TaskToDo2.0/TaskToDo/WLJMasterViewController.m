@@ -13,12 +13,15 @@
 #import "WLJTaskCell.h"
 #import "WLJTaskBL.h"
 #import "WLJTaskDetailViewController.h"
+#import "UIImageView+LBBlurredImage.h"
 
 #define HEADER_HEIGHT 200.0f
 #define HEADER_INIT_FRAME CGRectMake(0, 0, self.view.frame.size.width, HEADER_HEIGHT)
 #define TIMELABEL_HEIGHT 50.0f
 #define IMAGEVIEW_FRAME CGRectMake(0, 0, self.view.frame.size.width, HEADER_HEIGHT)
 #define TEXTFIELD_FRAME CGRectMake(0, 0, self.view.frame.size.width, HEADER_HEIGHT)
+#define NAVIGATIONITEM_TITLE_VIEW_RECT CGRectMake(115, 10, 94, 26)
+#define CREATE_TASK_VIEW_TAG 101
 
 
 typedef NS_ENUM(NSInteger, RE_EDITING_TYPE) {
@@ -84,7 +87,7 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     self.preContentOffsetY = -64.0f;
     
     //设置导航项目的标题视图
-    UIImageView *titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(115, 10, 94, 26)];
+    UIImageView *titleImageView = [[UIImageView alloc] initWithFrame:NAVIGATIONITEM_TITLE_VIEW_RECT];
     [titleImageView setContentMode:UIViewContentModeScaleAspectFit];
     UIImage *titleImage = [UIImage imageNamed:@"title"];
     titleImageView.image = titleImage;
@@ -152,6 +155,8 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     //调用编辑任务
     [self editTask:indexPath];
+    //测试，弹出创建任务视图
+    [self presentCreateTaskView];
     
 }
 //编辑任务
@@ -474,6 +479,206 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     //从编辑单元数组中移除指定的单元索引
     [self.taskCellsCurrentlyEditing removeObject:cell.indexPath];
 }
+
+#pragma mark - present create task view or modify task veiw
+
+- (void)presentCreateTaskView
+{
+
+    CGRect mainRect = [[UIScreen mainScreen] bounds];
+    CGRect beginRect = CGRectMake(0, mainRect.size.height, mainRect.size.width, mainRect.size.height);
+    UIView *createTaskView = [[UIView alloc] initWithFrame: beginRect];
+    createTaskView.tag = CREATE_TASK_VIEW_TAG;
+    createTaskView.alpha = 0.97;
+    //添加背景图片
+    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:mainRect];
+    bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+    bgImageView.image = [UIImage imageNamed:@"bg"];
+    [createTaskView addSubview:bgImageView];
+//    //添加磨砂效果
+//    UIImageView * blurredImageView = [[UIImageView alloc]init];
+//    blurredImageView.contentMode = UIViewContentModeScaleAspectFill;
+//    blurredImageView.alpha = 1;
+//    [blurredImageView setImageToBlur:[UIImage imageNamed:@"bg"] blurRadius:10.0f completionBlock:nil];
+//    [createTaskView addSubview:blurredImageView];
+//    
+    [self.navigationController.view addSubview:createTaskView];
+    
+    /*
+     *添加输入框
+     */
+    //任务标题
+    CGRect taskTitleRect = CGRectMake(0, 64.0f, mainRect.size.width, 30.0f);
+    UILabel *taskTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, mainRect.size.height, mainRect.size.width, 30.0f)];
+    taskTitle.tag = 1;
+    taskTitle.font = [UIFont fontWithName:@"AmericanTypewriter" size:20.0f];
+    taskTitle.textColor = [UIColor whiteColor];
+    taskTitle.textAlignment = NSTextAlignmentCenter;
+    taskTitle.text = @"Task Title";
+    [createTaskView addSubview:taskTitle];
+    
+    CGRect taskTitleTextRect = CGRectMake(0, 94.0f, mainRect.size.width, 40.0f);
+    UITextField *taskTitleTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, mainRect.size.height + 30.0f, mainRect.size.width, 40.0f)];
+    taskTitleTextField.tag = 2;
+    taskTitleTextField.borderStyle = UITextBorderStyleRoundedRect;
+    taskTitleTextField.alpha = 0.6;
+    taskTitleTextField.font = [UIFont fontWithName:@"AmericanTypewriter" size:20.0f];
+    taskTitleTextField.textColor = [UIColor whiteColor];
+    taskTitleTextField.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:187.0/255.0 blue:255.0/255.0 alpha:1];
+    taskTitleTextField.placeholder = @"new task title";
+    [createTaskView addSubview:taskTitleTextField];
+    
+    //任务细节
+    CGRect taskDetailRect = CGRectMake(0, 134.0f, mainRect.size.width, 30.0f);
+    UILabel *taskDetail = [[UILabel alloc]initWithFrame:CGRectMake(0, mainRect.size.height + 70.0f, mainRect.size.width, 30.0f)];
+    taskDetail.tag = 3;
+    taskDetail.font = [UIFont fontWithName:@"AmericanTypewriter" size:20.0f];
+    taskDetail.textColor = [UIColor whiteColor];
+    taskDetail.textAlignment = NSTextAlignmentCenter;
+    taskDetail.text = @"Task Detail";
+
+    [createTaskView addSubview:taskDetail];
+    
+    CGRect taskDetailTextRect = CGRectMake(0, 164.0f, mainRect.size.width, 460.0f);
+    UITextView *taskDetailTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, mainRect.size.height + 100.0f, mainRect.size.width, 460.0f)];
+    taskDetailTextView.tag = 4;
+    //bouncesZoom和bounces数值默认是YES
+    //taskDetailTextView.bouncesZoom = YES;
+    //taskDetailTextView.bounces = YES;
+    taskDetailTextView.alpha = 0.6;
+    taskDetailTextView.textAlignment = NSTextAlignmentCenter;
+    taskDetailTextView.font = [UIFont fontWithName:@"AmericanTypewriter" size:20.0f];
+    taskDetailTextView.textColor = [UIColor whiteColor];
+    taskDetailTextView.backgroundColor = [UIColor colorWithRed:85.0/255.0 green:26.0/255.0 blue:139.0/255.0 alpha:1];
+    taskDetailTextView.text = @"Jasper";
+    [createTaskView addSubview:taskDetailTextView];
+    
+    /*
+     *创建任务导航栏的样式（取消和保存按钮）
+     */
+    //导航栏和导航项目
+    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 20.0f, mainRect.size.width, 44.0f)];
+    navigationBar.barTintColor = [UIColor colorWithRed:22.0/255.0 green:31.0/255.0 blue:68.0/255.0 alpha:1];
+    UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
+    //导航栏标题视图
+    UILabel *navigationItemTitleLabel = [[UILabel alloc] initWithFrame:NAVIGATIONITEM_TITLE_VIEW_RECT];
+    navigationItemTitleLabel.font = [UIFont fontWithName:@"AmericanTypewriter" size:26.0f];
+    navigationItemTitleLabel.textAlignment = NSTextAlignmentCenter;
+    navigationItemTitleLabel.text = @"Task Create";
+    navigationItemTitleLabel.textColor = [UIColor whiteColor];
+    navigationItem.titleView = navigationItemTitleLabel;
+    //导航栏右侧按钮
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightButton setBackgroundImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(saveCreateTask) forControlEvents:UIControlEventTouchUpInside];
+    rightButton.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *rightBarbutton = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    navigationItem.rightBarButtonItem = rightBarbutton;
+    //导航栏左侧按钮
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [leftButton setBackgroundImage:[UIImage imageNamed:@"cancel"] forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(cancelCreateTask) forControlEvents:UIControlEventTouchUpInside];
+    leftButton.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *leftBarbutton = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    navigationItem.leftBarButtonItem = leftBarbutton;
+    
+    [navigationBar pushNavigationItem:navigationItem animated:YES];
+
+    
+    [createTaskView addSubview:navigationBar];
+    
+    //创建任务的视图弹出的动画效果
+    [UIView animateWithDuration:0.35f animations:^{
+        createTaskView.frame = mainRect;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 animations:^{
+            taskTitle.frame = taskTitleRect;
+        }];
+        [UIView animateWithDuration:0.25 animations:^{
+            taskTitleTextField.frame = taskTitleTextRect;
+        }];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            taskDetail.frame = taskDetailRect;
+        }];
+        
+        [UIView animateWithDuration:0.35 animations:^{
+            taskDetailTextView.frame = taskDetailTextRect;
+        }];
+    }];
+    
+
+}
+
+- (void)saveCreateTask{
+    UIView *dismissCreateTaskView = [self.navigationController.view viewWithTag:CREATE_TASK_VIEW_TAG];
+    
+    UILabel *titleLabel = (UILabel *)[dismissCreateTaskView viewWithTag:1];
+    UITextField *titleTextField = (UITextField *)[dismissCreateTaskView viewWithTag:2];
+    UILabel *taskDetailLabel = (UILabel *)[dismissCreateTaskView viewWithTag:3];
+    UITextView *taskDetailTextView = (UITextView *)[dismissCreateTaskView viewWithTag:4];
+    
+    CGRect mainRect = [UIScreen mainScreen].bounds;
+    CGRect titleLabelRect = CGRectMake(0, mainRect.size.height, mainRect.size.width, 30.0f);
+    CGRect titleTextFieldRect = CGRectMake(0, mainRect.size.height + 30.0f, mainRect.size.width, 40.0f);
+    CGRect taskDetailLabelRect = CGRectMake(0, mainRect.size.height + 70.0f, mainRect.size.width, 30.0f);
+    CGRect taskDetailTextViewRect = CGRectMake(0, mainRect.size.height + 100.0f, mainRect.size.width, 460.0f);
+    
+    [UIView animateWithDuration:0.35 animations:^{
+        titleLabel.frame = titleLabelRect;
+    } completion:^(BOOL finished) {
+        
+    }];
+    [UIView animateWithDuration:0.3 animations:^{
+        titleTextField.frame = titleTextFieldRect;
+    }];
+    [UIView animateWithDuration:0.25 animations:^{
+        taskDetailLabel.frame = taskDetailLabelRect;
+    }];
+    [UIView animateWithDuration:0.2 animations:^{
+        taskDetailTextView.frame = taskDetailTextViewRect;
+    }];
+    [UIView animateWithDuration:0.45 animations:^{
+        dismissCreateTaskView.frame = CGRectMake(0, mainRect.size.height, mainRect.size.width, mainRect.size.height);
+    } completion:^(BOOL finished) {
+        [dismissCreateTaskView removeFromSuperview];
+    }];
+
+}
+-(void)cancelCreateTask{
+    UIView *dismissCreateTaskView = [self.navigationController.view viewWithTag:CREATE_TASK_VIEW_TAG];
+    
+    UILabel *titleLabel = (UILabel *)[dismissCreateTaskView viewWithTag:1];
+    UITextField *titleTextField = (UITextField *)[dismissCreateTaskView viewWithTag:2];
+    UILabel *taskDetailLabel = (UILabel *)[dismissCreateTaskView viewWithTag:3];
+    UITextView *taskDetailTextView = (UITextView *)[dismissCreateTaskView viewWithTag:4];
+    
+    CGRect mainRect = [UIScreen mainScreen].bounds;
+    CGRect titleLabelRect = CGRectMake(0, mainRect.size.height, mainRect.size.width, 30.0f);
+    CGRect titleTextFieldRect = CGRectMake(0, mainRect.size.height + 30.0f, mainRect.size.width, 40.0f);
+    CGRect taskDetailLabelRect = CGRectMake(0, mainRect.size.height + 70.0f, mainRect.size.width, 30.0f);
+    CGRect taskDetailTextViewRect = CGRectMake(0, mainRect.size.height + 100.0f, mainRect.size.width, 460.0f);
+    
+    [UIView animateWithDuration:0.35 animations:^{
+        titleLabel.frame = titleLabelRect;
+    } completion:^(BOOL finished) {
+       
+    }];
+    [UIView animateWithDuration:0.3 animations:^{
+        titleTextField.frame = titleTextFieldRect;
+    }];
+    [UIView animateWithDuration:0.25 animations:^{
+        taskDetailLabel.frame = taskDetailLabelRect;
+    }];
+    [UIView animateWithDuration:0.2 animations:^{
+        taskDetailTextView.frame = taskDetailTextViewRect;
+    }];
+    [UIView animateWithDuration:0.45 animations:^{
+        dismissCreateTaskView.frame = CGRectMake(0, mainRect.size.height, mainRect.size.width, mainRect.size.height);
+    } completion:^(BOOL finished) {
+        [dismissCreateTaskView removeFromSuperview];
+    }];
+}
 /*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
@@ -503,5 +708,7 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 @end
