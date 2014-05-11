@@ -139,7 +139,7 @@
     [request setEntity:entityDescription];
     
     //查询得到的数据要进行排序
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
     [request setSortDescriptors:@[sortDescriptor]];
     
     NSError *error = nil;

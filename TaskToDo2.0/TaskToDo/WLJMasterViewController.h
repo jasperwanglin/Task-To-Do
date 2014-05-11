@@ -10,4 +10,7 @@
 
 @interface WLJMasterViewController : UITableViewController
 
+@property (nonatomic, strong) NSIndexPath* currentSelectedCellIndexPath;//存放当前选中的单元
+@property (nonatomic, strong) NSMutableArray *Tasks;//存放所有的任务，从数据库中读取
+
 @end

@@ -12,6 +12,7 @@
 #import "WLJHeaderView.h"
 #import "WLJTaskCell.h"
 #import "WLJTaskBL.h"
+#import "WLJTask.h"
 #import "WLJTaskDetailViewController.h"
 #import "UIImageView+LBBlurredImage.h"
 
@@ -22,6 +23,7 @@
 #define TEXTFIELD_FRAME CGRectMake(0, 0, self.view.frame.size.width, HEADER_HEIGHT)
 #define NAVIGATIONITEM_TITLE_VIEW_RECT CGRectMake(115, 10, 94, 26)
 #define CREATE_TASK_VIEW_TAG 101
+#define RELOAD_VIEW_NOTIFICATION @"reloadViewNotification"
 
 
 typedef NS_ENUM(NSInteger, RE_EDITING_TYPE) {
@@ -35,11 +37,12 @@ int rowNum;
 
 @property (nonatomic, strong) WLJHeaderView *headerView;//表视图的头视图
 @property (nonatomic, strong) NSMutableArray *taskCellsCurrentlyEditing;//存放正在编辑的任务
-@property (nonatomic, strong) NSMutableArray *Tasks;//存放已经添加的任务
+@property (nonatomic, strong) NSIndexPath* currentEditingCellIndexPath;//存放当前正在编辑的任务单元的索引
 @property (nonatomic, strong) NSArray *backgroundColors;//任务单元中的按钮的颜色
-@property (nonatomic, strong) NSArray *buttonTextColors;
-@property (nonatomic, assign) BOOL hideStatusBar;
-@property (nonatomic, assign) CGFloat preContentOffsetY;
+@property (nonatomic, assign) BOOL hideStatusBar;//状态栏隐藏与否
+@property (nonatomic, assign) CGFloat preContentOffsetY;//前一次表视图滚动的偏移值
+@property (nonatomic, strong) WLJTaskBL *taskBL;//业务持久层类，用于管理数据
+
 
 @end
 
@@ -55,8 +58,6 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    rowNum = 6;
-    
     
     //设置状态栏状态为显示
     self.hideStatusBar = NO;
@@ -70,11 +71,11 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     //初始化编辑单元数组
     self.taskCellsCurrentlyEditing = [NSMutableArray array];
     
+    //初始化当前打开的任务单元
+    self.currentEditingCellIndexPath = [NSIndexPath indexPathForRow:-1 inSection:0];
+    
     //登记重复使用的任务单元
     [self.tableView registerClass:[WLJTaskCell class] forCellReuseIdentifier:kWLJTaskCellIdentifier];
-    
-    //读取文件，将用户已经创建的任务读入
-    
     
     //设置单元按钮的背景颜色
     self.backgroundColors = @[[UIColor colorWithRed:255.0/255.0 green:0 blue:0 alpha:1],[UIColor colorWithRed:255.0/255.0 green:20.0/255.0 blue:147.0/255.0 alpha:1],[UIColor colorWithRed:255.0/255.0 green:182.0/255.0 blue:193.0/255.0 alpha:1]];
@@ -110,11 +111,28 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     
     UIBarButtonItem *rightBarbutton = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightBarbutton;
+    
+    //读取文件，将用户已经创建的任务读入任务数组
+    self.taskBL = [[WLJTaskBL alloc] init];
+//    //测试
+//    WLJTask *task = [[WLJTask alloc] init];
+//    task.title = @"wang";
+//    task.date = [NSDate date];
+//    task.detail = @"lin";
+//    [self.taskBL createTask:task];
+    self.Tasks = [self.taskBL findAllTask];
+//    for (int i = 0; i < [self.Tasks count]; i++) {
+//        NSLog(@"%d : %@", i, [self.Tasks objectAtIndex:i]);
+//    }
+    
+    //注册通知中心的重载视图通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadView:) name:RELOAD_VIEW_NOTIFICATION object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
+
 //导航栏左侧按钮出发动作，弹出提供设置的模态视图
 - (void)setting:(UIButton *)button
 {
@@ -149,15 +167,12 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     } completion:^(BOOL finished) {
         button.transform = CGAffineTransformMakeRotation(0);
     }];
-    
-    rowNum++;//注意，添加任务的时候，行数一定要增加
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    //调用编辑任务
-    [self editTask:indexPath];
     //测试，弹出创建任务视图
     [self presentCreateTaskView];
-    
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    //调用编辑任务
+//    [self editTask:indexPath];
 }
 //编辑任务
 - (void)editTask:(NSIndexPath *)indexPath{
@@ -313,7 +328,7 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return rowNum;//[self.Tasks count];
+    return [self.Tasks count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -321,18 +336,22 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     NSLog(@"生成任务单元");
     WLJTaskCell *cell = [tableView dequeueReusableCellWithIdentifier:kWLJTaskCellIdentifier forIndexPath:indexPath];
     
-    //设置任务单元的内容
-    if (1) {
-        //任务是重要的
-        
-        //设置图像
-        
-        //设置任务标题
-        cell.taskTitleLabel.text = @"Hello Sir!";
-    }else{
-        //设置任务标题
-        
-    }
+    WLJTask *task = self.Tasks[indexPath.row];
+    
+    /*
+     *设置任务单元的内容
+     */
+    //任务标题
+    cell.taskTitleLabel.text = task.title;
+    
+    //任务创建时间
+    cell.taskCreatedDateLabel.text = [NSDateFormatter localizedStringFromDate:task.date dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
+    
+    //任务单元的重要性图标
+    cell.taskImageView.image = task.isImportant ? [UIImage imageNamed:@"important"] : [UIImage imageNamed:@"unimportant"];
+    
+    //任务单元颜色
+    cell.myContentView.backgroundColor = [cell cellColor];
     
     //保存任务单元的索引(重要，否则无法正常工作)
     cell.indexPath = indexPath;
@@ -359,7 +378,8 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     //弹出详细任务单
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     WLJTaskDetailViewController *taskDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"TaskDetailVIewController"];
-    
+    taskDetailViewController.delegate = self;
+    self.currentSelectedCellIndexPath = indexPath;
     [self presentViewController:taskDetailViewController animated:YES completion:nil];
 }
 -(void)closeModal{
@@ -370,15 +390,20 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //完成任务，即要删除任务
-//        [self.Tasks removeObjectAtIndex:indexPath.row];
+        WLJTask *deletedTask = self.Tasks[indexPath.row];
+        [self.taskBL removeTask:deletedTask];
+        self.Tasks = [self.taskBL findAllTask];
+        
         //删除表视图中的任务单元
-        rowNum -= 1;
+        WLJTaskCell *deletedCell = (WLJTaskCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        [self swipeableCellDidClose:deletedCell];
+        [deletedCell closeCell:YES];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         NSLog(@"插入操作");
     }
-    
+
     [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
 }
 
@@ -435,42 +460,40 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     }else if(index == 1){
         [self swipeableCellDidClose:cell];
         [cell closeCell:YES];
-        [self ReEditinga:ReName :(WLJTaskCell *)cell];
         
         //点击编辑按钮，弹出编辑视图
         
     }else{
+        WLJTask *modifyTask = [self.Tasks objectAtIndex:cell.indexPath.row];
+        if (modifyTask.isImportant) {
+
+            modifyTask.isImportant = NO;
+            [(WLJTaskCell *)cell taskImageView].image = [UIImage imageNamed:@"unimportant"];
+        
+        }else{
+        
+            modifyTask.isImportant = YES;
+            [(WLJTaskCell *)cell taskImageView].image = [UIImage imageNamed:@"important"];
+        }
+        //更新数据库信息
+        [self.taskBL modifyTask:modifyTask];
+        self.Tasks = [self.taskBL findAllTask];
+        
         [self swipeableCellDidClose:cell];
         [cell closeCell:YES];
-        [self ReEditinga:BeImportant :(WLJTaskCell *)cell];
         
-        //点击重要按钮,给任务表单添加重要图标，调整任务标题的位置
-    }
-}
-
-//编辑任务：包括设置为重点任务和改变任务的名称
-- (void) ReEditinga:(RE_EDITING_TYPE)editingType : (WLJTaskCell *)taskCell{
-    switch (editingType) {
-        case ReName:
-            [taskCell.taskNameTextField becomeFirstResponder];
-            break;
-        case BeImportant:
-            if ([taskCell.taskImageView.image isEqual:[UIImage imageNamed:@"important"]]) {
-                taskCell.taskImageView.image = [UIImage imageNamed:@"unimportant"];
-                taskCell.taskNameTextField.textColor = [UIColor purpleColor];
-            }else{
-                taskCell.taskImageView.image = [UIImage imageNamed:@"important"];
-                taskCell.taskNameTextField.textColor = [UIColor redColor];
-            }
-
-            break;
-            
-        default:
-            break;
     }
 }
 
 - (void)swipeableCellDidOpen:(DNSSwipeableCell *)cell{
+    
+    if (self.currentEditingCellIndexPath.row != -1) {
+        WLJTaskCell *preCell = (WLJTaskCell *)[self.tableView cellForRowAtIndexPath:self.currentEditingCellIndexPath];
+        [self swipeableCellDidClose:preCell];
+        [preCell closeCell:YES];
+    }
+    self.currentEditingCellIndexPath = cell.indexPath;
+    
     //添加正在编辑的单元索引到编辑单元数组中
     [self.taskCellsCurrentlyEditing addObject:cell.indexPath];
 }
@@ -542,6 +565,7 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     CGRect taskDetailTextRect = CGRectMake(0, 164.0f, mainRect.size.width, 460.0f);
     UITextView *taskDetailTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, mainRect.size.height + 100.0f, mainRect.size.width, 460.0f)];
     taskDetailTextView.tag = 4;
+    taskDetailTextView.layer.cornerRadius = 10.0f;
     //bouncesZoom和bounces数值默认是YES
     //taskDetailTextView.bouncesZoom = YES;
     //taskDetailTextView.bounces = YES;
@@ -611,6 +635,7 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
 }
 
 - (void)saveCreateTask{
+
     UIView *dismissCreateTaskView = [self.navigationController.view viewWithTag:CREATE_TASK_VIEW_TAG];
     
     UILabel *titleLabel = (UILabel *)[dismissCreateTaskView viewWithTag:1];
@@ -618,6 +643,20 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     UILabel *taskDetailLabel = (UILabel *)[dismissCreateTaskView viewWithTag:3];
     UITextView *taskDetailTextView = (UITextView *)[dismissCreateTaskView viewWithTag:4];
     
+    /*
+     *创建任务
+     */
+    //创建任务
+    WLJTask *newTask = [[WLJTask alloc] init];
+    newTask.title = titleTextField.text;
+    newTask.date = [NSDate date];
+    newTask.detail = taskDetailTextView.text;
+    //把任务出入数据库
+    [self.taskBL createTask:newTask];
+    //更新tasks数据
+    self.Tasks = [self.taskBL findAllTask];
+    
+    //动画弹出
     CGRect mainRect = [UIScreen mainScreen].bounds;
     CGRect titleLabelRect = CGRectMake(0, mainRect.size.height, mainRect.size.width, 30.0f);
     CGRect titleTextFieldRect = CGRectMake(0, mainRect.size.height + 30.0f, mainRect.size.width, 40.0f);
@@ -626,8 +665,6 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     
     [UIView animateWithDuration:0.35 animations:^{
         titleLabel.frame = titleLabelRect;
-    } completion:^(BOOL finished) {
-        
     }];
     [UIView animateWithDuration:0.3 animations:^{
         titleTextField.frame = titleTextFieldRect;
@@ -641,6 +678,9 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
     [UIView animateWithDuration:0.45 animations:^{
         dismissCreateTaskView.frame = CGRectMake(0, mainRect.size.height, mainRect.size.width, mainRect.size.height);
     } completion:^(BOOL finished) {
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        //记住，一定能够要重载一下
+        [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5f];
         [dismissCreateTaskView removeFromSuperview];
     }];
 
@@ -679,6 +719,14 @@ static NSString * const kWLJTaskCellIdentifier = @"Cell";
         [dismissCreateTaskView removeFromSuperview];
     }];
 }
+
+//重新载入表视图数据
+- (void)reloadView: (NSNotification *)notification
+{
+    self.Tasks = [self.taskBL findAllTask];
+    [self.tableView reloadData];
+}
+
 /*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath

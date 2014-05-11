@@ -7,6 +7,8 @@
 //
 
 #import "WLJTaskDetailViewController.h"
+#import "WLJMasterViewController.h"
+#import "WLJTask.h"
 
 #define NAVIGATIONBARTAG 1
 #define TABLEVIEWTAG 2
@@ -111,6 +113,10 @@
 
     static NSString *cellWithIdentifier = @"CellWithIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellWithIdentifier];
+
+    //获得委托和被选中的任务
+    WLJMasterViewController *masterViewController = (WLJMasterViewController *)[self delegate];
+    WLJTask *currentSelectedTask = (WLJTask *)[masterViewController.Tasks objectAtIndex:masterViewController.currentSelectedCellIndexPath.row];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellWithIdentifier];
@@ -121,7 +127,7 @@
                 titleLabel.font = [UIFont fontWithName:@"AmericanTypewriter" size:20.0f];
                 titleLabel.textColor = [UIColor whiteColor];
                 titleLabel.textAlignment = NSTextAlignmentCenter;
-                titleLabel.text = @"test";
+                titleLabel.text = currentSelectedTask.title;
                 [cell addSubview:titleLabel];
                 break;
             }
@@ -131,7 +137,7 @@
                 createDateLabel.font = [UIFont fontWithName:@"AmericanTypewriter" size:20.0f];
                 createDateLabel.textColor = [UIColor whiteColor];
                 createDateLabel.textAlignment = NSTextAlignmentCenter;
-                createDateLabel.text = @"test";
+                createDateLabel.text = [NSDateFormatter localizedStringFromDate:currentSelectedTask.date dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
                 [cell addSubview:createDateLabel];
                 break;
             }
@@ -141,7 +147,7 @@
                 taskDetailLabel.font = [UIFont fontWithName:@"AmericanTypewriter" size:25.0f];
                 taskDetailLabel.textColor = [UIColor whiteColor];
                 taskDetailLabel.textAlignment = NSTextAlignmentCenter;
-                taskDetailLabel.text = @"test";
+                taskDetailLabel.text = currentSelectedTask.detail;
                 [cell addSubview:taskDetailLabel];
             }
             default:
